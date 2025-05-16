@@ -1,18 +1,31 @@
-name: Lint
+name: lint
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  lint:
+  checkstyle:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout du code
+        uses: actions/checkout@v3
 
-      - name: Set up JDK
-        uses: actions/setup-java@v1
+      - name: Installer Java 11
+        uses: actions/setup-java@v3
         with:
+          distribution: 'temurin'
           java-version: '11'
+          cache: 'maven'
 
-      - name: Run Checkstyle
+      - name: Supprimer le cache Maven local
+        run: rm -rf ~/.m2/repository
+
+      - name: Nettoyage du projet (clean)
+        run: mvn clean
+
+      - name: Lancer Checkstyle
         run: mvn checkstyle:check
