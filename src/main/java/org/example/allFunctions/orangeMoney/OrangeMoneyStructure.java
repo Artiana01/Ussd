@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class OrangeMoneyStructure {
     private final Scanner scanner = new Scanner(System.in);
     private final InvalidChoice invalidChoice = new InvalidChoice();
+    private final Forfaits forfaits = new Forfaits();
     private UssdStructure ussdStructure;
 
     public void setUssdStructure(UssdStructure ussdStructure) {
@@ -25,7 +26,7 @@ public class OrangeMoneyStructure {
                     "# Page suivante");
             String choice = scanner.nextLine();
             switch (choice) {
-                case "1" -> System.out.println("AcheterForfait()");
+                case "1" -> forfaits.AcheterForfait();
                 case "2" -> System.out.println("RetraitArgent()");
                 case "3" -> System.out.println("TransfererArgent()");
                 case "#" -> PageSuivante();
